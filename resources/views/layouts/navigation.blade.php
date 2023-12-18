@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('borrowed.index')" :active="request()->routeIs('borrowed.index')">
                         {{ __('Borrowed Books') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('reviews.index')" :active="request()->routeIs('reviews.index')">
+                        {{ __('Reviews') }}
+                    </x-nav-link>
                     <!-- Example: navigation.blade.php -->
 
 
