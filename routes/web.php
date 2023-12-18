@@ -54,14 +54,20 @@ Route::resource('borrows', BorrowController::class)->middleware('auth');
 
 
 
-Route::resource('books', BookController::class)->middleware('auth');
-Route::get('books/{id}/manage-count', [BookController::class, 'manageCount'])->name('books.manageCount');
-Route::put('books/{id}/update-count', [BookController::class, 'updateCount'])->name('books.updateCount');
 
 
+// routes/web.php
+
+use App\Http\Controllers\BookCountController;
+
+Route::get('books/{id}/manage-count', [BookCountController::class, 'manageCount'])->name('books.manageCount');
+Route::put('books/{id}/update-count', [BookCountController::class, 'updateCount'])->name('books.updateCount');
+
+// web.php
+Route::get('/books/borrowed', [BookController::class, 'borrowedBooks'])->name('books.borrowed');
 
 require __DIR__.'/auth.php';
 
-require __DIR__.'/auth.php';
+
 
 

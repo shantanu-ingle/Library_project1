@@ -24,4 +24,14 @@ class Borrow extends Model
         // Increment the available count
         $this->book->incrementAvailableCount();
     }
+    // Borrow.php
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

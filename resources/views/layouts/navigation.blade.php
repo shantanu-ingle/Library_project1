@@ -21,9 +21,7 @@
                     <x-nav-link :href="route('borrows.index')" :active="request()->routeIs('borrows.index')">
                         {{ __('Borrow Books') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('books.manageCount', ['id' => $book->id])" :active="request()->routeIs('books.manageCount')">
-                        {{ __('Stocks') }}
-                    </x-nav-link>
+                    
                 </div>
             </div>
 

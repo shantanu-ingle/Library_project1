@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $fillable = ['title', 'author', 'description'];
+    protected $fillable = ['title', 'author', 'description', 'available_count'];
+
 
     public function borrows()
     {
@@ -30,4 +31,5 @@ class Book extends Model
         $this->available_count--;
         $this->save();
     }
+    
 }
