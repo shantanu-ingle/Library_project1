@@ -10,7 +10,7 @@ class Chirp extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'message',
+        'message','rating'
     ];
     public function user(): BelongsTo
     {

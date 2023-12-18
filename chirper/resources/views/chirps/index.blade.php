@@ -4,9 +4,40 @@
             @csrf
             <textarea
                 name="message"
-                placeholder="{{ __('Give Book Review!') }}"
+                placeholder="{{ __('Give Book Review!')}}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
             >{{ old('message') }}</textarea>
+            <label for="Rating">Give Ratings to the book:</label> <br>
+            <div class="rating" style="display: inline-block;">
+                <input type="radio" id="star5" name="rating" value="5" style="display: none;">
+                <label for="star5" title="5 stars" style="cursor: pointer; width: 26px; font-size: 20px; color: #ccc;">★</label>
+                <input type="radio" id="star4" name="rating" value="4" style="display: none;">
+                <label for="star4" title="4 stars" style="cursor: pointer; width: 26px; font-size: 20px; color: #ccc;">★</label>
+                <input type="radio" id="star3" name="rating" value="3" style="display: none;">
+                <label for="star3" title="3 stars" style="cursor: pointer; width: 26px; font-size: 20px; color: #ccc;">★</label>
+                <input type="radio" id="star2" name="rating" value="2" style="display: none;">
+                <label for="star2" title="2 stars" style="cursor: pointer; width: 26px; font-size: 20px; color: #ccc;">★</label>
+                <input type="radio" id="star1" name="rating" value="1" style="display: none;">
+                <label for="star1" title="1 star" style="cursor: pointer; width: 26px; font-size: 20px; color: #ccc;">★</label>
+            </div>
+            <script>
+                const labels = document.querySelectorAll('.rating label');
+                labels.forEach((label, index) => {
+                    label.addEventListener('click', () => {
+                        const clickedValue = index + 1;
+                        for (let i = 0; i <= index; i++) {
+                            labels[i].style.color = '#ffcc00'; // change color of clicked and previous stars
+                        }
+                        for (let i = index + 1; i < labels.length; i++) {
+                            labels[i].style.color = '#ccc'; // reset color of remaining stars
+                        }
+                        document.querySelector('.rating input:checked').checked = false;
+                        document.getElementById(`star${clickedValue}`).checked = true;
+                    });
+                });
+            </script>
+            
+            <br>
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Post') }}</x-primary-button>
         </form>
@@ -25,6 +56,7 @@
                                 @unless ($chirp->created_at->eq($chirp->updated_at))
                                     <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                                 @endunless
+                                <p>Rating: {{ $chirp->rating }}</p>
                             </div>
                             @if ($chirp->user->is(auth()->user()))
                                 <x-dropdown>
