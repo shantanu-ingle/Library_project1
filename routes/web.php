@@ -64,7 +64,11 @@ Route::get('books/{id}/manage-count', [BookCountController::class, 'manageCount'
 Route::put('books/{id}/update-count', [BookCountController::class, 'updateCount'])->name('books.updateCount');
 
 // web.php
-Route::get('/books/borrowed', [BookController::class, 'borrowedBooks'])->name('books.borrowed');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/borrowed', [BookController::class, 'borrowedBooks'])->name('borrowed.index');
+});
+
+
 
 require __DIR__.'/auth.php';
 

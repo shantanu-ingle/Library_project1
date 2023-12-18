@@ -33,6 +33,8 @@
             <!-- Page Content -->
             <main>
             <ul>
+            
+
             <li><a href="{{ route('books.index') }}">Books</a></li>
             <!-- Add other navigation links as needed -->
         </ul>

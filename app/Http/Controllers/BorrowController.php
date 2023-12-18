@@ -12,61 +12,42 @@ class BorrowController extends Controller
 {
     public function index()
     {
-        $availableBooks = Book::whereDoesntHave('borrows', function ($query) {
-            $query->whereNull('returned_at');
+        // Retrieve available books by excluding borrowed books
+        $availableBooks = Book::whereNotIn('id', function ($query) {
+            $query->select('book_id')->from('borrows')->whereNull('returned_at');
         })->get();
 
         return view('borrows.index', compact('availableBooks'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'book_id' => 'required|exists:books,id',
-    //         'due_date' => 'required|date|after:today',
-    //     ]);
+ 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'due_date' => 'required|date|after:today',
+        ]);
 
-    //     $book = Book::find($request->input('book_id'));
+        $book = Book::find($request->input('book_id'));
 
-    //     if (!$book->isAvailable()) {
-    //         return redirect()->route('borrows.index')->with('error', 'Book is not available for borrowing.');
-    //     }
+        if ($book->available_count <= 0) {
+            return redirect()->route('borrows.index')->with('error', 'Book is not available for borrowing.');
+        }
 
-    //     $borrow = Borrow::create([
-    //         'user_id' => auth()->id(),
-    //         'book_id' => $book->id,
-    //         'due_date' => $request->input('due_date'),
-    //     ]);
+        // Decrement the available count
+        $book->decrement('available_count');
 
-    //     return redirect()->route('borrows.index')->with('success', 'Book borrowed successfully.');
-    // }
-    // app/Http/Controllers/BorrowController.php
+        // Create the borrow record
+        $borrow = Borrow::create([
+            'user_id' => auth()->id(),
+            'book_id' => $book->id,
+            'due_date' => $request->input('due_date'),
+        ]);
 
-public function store(Request $request)
-{
-    $request->validate([
-        'book_id' => 'required|exists:books,id',
-        'due_date' => 'required|date|after:today',
-    ]);
-
-    $book = Book::find($request->input('book_id'));
-
-    if (!$book->isAvailable()) {
-        return redirect()->route('borrows.index')->with('error', 'Book is not available for borrowing.');
+        return redirect()->route('borrows.index')->with('success', 'Book borrowed successfully.');
     }
+    
 
-    // Decrement the available count
-    $book->decrementAvailableCount();
-
-    // Create the borrow record
-    $borrow = Borrow::create([
-        'user_id' => auth()->id(),
-        'book_id' => $book->id,
-        'due_date' => $request->input('due_date'),
-    ]);
-
-    return redirect()->route('borrows.index')->with('success', 'Book borrowed successfully.');
-}
 // app/Http/Controllers/BookController.php
 
 public function manageCount($id)

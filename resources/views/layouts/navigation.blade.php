@@ -21,7 +21,12 @@
                     <x-nav-link :href="route('borrows.index')" :active="request()->routeIs('borrows.index')">
                         {{ __('Borrow Books') }}
                     </x-nav-link>
-                    
+                    <x-nav-link :href="route('borrowed.index')" :active="request()->routeIs('borrowed.index')">
+                        {{ __('Borrowed Books') }}
+                    </x-nav-link>
+                    <!-- Example: navigation.blade.php -->
+
+
                 </div>
             </div>
 
