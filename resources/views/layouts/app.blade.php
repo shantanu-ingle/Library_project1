@@ -54,20 +54,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <!-- Card 1 -->
                     <div class="bg-blue-500 text-white p-4 rounded-md">
-                        <h2 class="text-lg font-semibold mb-2">Card 1</h2>
-                        <p>Your content here.</p>
+                        <h2 class="text-lg font-semibold mb-2">Explore</h2>
+                        <p>Discover a diverse book collection to satisfy your curiosity across genres and topics.</p>
                     </div>
 
                     <!-- Card 2 -->
                     <div class="bg-green-500 text-white p-4 rounded-md">
-                        <h2 class="text-lg font-semibold mb-2">Card 2</h2>
-                        <p>Your content here.</p>
+                        <h2 class="text-lg font-semibold mb-2">Borrow</h2>
+                        <p>Discover the joy of reading through easy book borrowing, bringing your desired books into your world.</p>
                     </div>
 
                     <!-- Card 3 -->
                     <div class="bg-orange-500 text-white p-4 rounded-md">
-                        <h2 class="text-lg font-semibold mb-2">Card 3</h2>
-                        <p>Your content here.</p>
+                        <h2 class="text-lg font-semibold mb-2">Review</h2>
+                        <p>Share your insights and opinions on the books you've read, connecting with fellow readers to shape our community.</p>
                     </div>
                 </div>
 
